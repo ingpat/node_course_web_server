@@ -2,6 +2,7 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+const port = process.env.PORT || 3000;
 var app = express();
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -19,9 +20,9 @@ app.use((req, res, next) => {
 });
 
 //maintenance
-app.use((req, res, next) => {
-    res.render('maintenance.hbs');
-});
+// app.use((req, res, next) => {
+//     res.render('maintenance.hbs');
+// });
 
 //pour eviter que la page de maintenane ne s'affiche la premiere
 app.use(express.static(__dirname + '/public'));
@@ -30,7 +31,7 @@ hbs.registerHelper('getCurrentYear', () => {
     return new Date().getFullYear();
 });
 
-//hbs.registerHelper('screamIt',(text)=>{
+//hbs.registerHelper('screamIt',(text)=>{ 
 // return text.toUpperCase();
 //});
 
@@ -57,4 +58,6 @@ app.get('/bad', (req, res) => {
         errorMessage: 'unable to handle request'
     });
 });
-app.listen(3000, () => { console.log('Server is up at port 3000'); }); 
+app.listen(port, () => { 
+    console.log(`Server is up at port ${port}`);
+ }); 
